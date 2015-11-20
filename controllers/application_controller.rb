@@ -65,10 +65,7 @@ class ApplicationController < Sinatra::Base
 
     logger.info request_url
     results = CheckSearchFromAPI.new(request_url, form).call
-    logger.info 'code:'
-    logger.info results.code
-    error_send back, 'Could not find usernames' if (results.code != 200)
-
+    
     if (results.code != 200)
       flash[:notice] = 'Could not found course'
       redirect '/search'
