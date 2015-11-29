@@ -1,7 +1,7 @@
 require_relative 'spec_helper'
 require 'json'
 
-describe 'Prognition Stories' do
+describe 'Kiwi harvest Stories' do
   before do
     unless @browser
       @headless = Headless.new
@@ -27,8 +27,8 @@ describe 'Prognition Stories' do
     end
   end
 
-  after do
-    @browser.close
-    @headless.destroy
-  end
+  # after do
+  #   @browser.close
+  #   @headless.destroy
+  # end
 end
