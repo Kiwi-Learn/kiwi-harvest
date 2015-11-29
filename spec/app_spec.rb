@@ -22,7 +22,7 @@ describe 'Kiwi harvest Stories' do
       @browser.url.must_match %r{http.*/search}
 
       @browser.text_field(name: 'keyword').set('program')
-      @browser.input(id: 'check-submit').click
+      @browser.button(id: 'check-submit').click
       @browser.url.must_match %r{http.*/courses/.*}
 
       @browser.table(class: 'table').rows.count.must_be :>=, 1
@@ -41,8 +41,8 @@ describe 'Kiwi harvest Stories' do
     end
   end
 
-  # after do
-  #   @browser.close
-  #   @headless.destroy
-  # end
+  after do
+    @browser.close
+    @headless.destroy
+  end
 end
