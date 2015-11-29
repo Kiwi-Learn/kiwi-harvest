@@ -10,8 +10,6 @@ gem 'activemodel'
 gem 'fuzzy_match'
 gem 'digest'
 
-gem 'activerecord'
-gem 'sinatra-activerecord'
 gem 'hirb'
 
 gem 'httparty'
