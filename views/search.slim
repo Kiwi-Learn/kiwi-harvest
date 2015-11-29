@@ -1,17 +1,12 @@
 .container
-  form.navbar-form action='/search' method='post' id='search-form'
-    input.form-control type='text' name='keyword' id='home-form-keyword' placeholder='Course name here...'
-    input.form-control type='submit' value='submit' id='check-submit' class='submit'
-  p
-
-  / .row
-  /   .col-lg-6
-  /   .input-group.input-group-lg
-  /     input.form-control placeholder=("Search for...") type="text" /
-  /     span.input-group-btn
-  /       button.btn.btn-default type="button"  Submit!
-
-  / form.navbar-form.navbar-left role="search" 
-  /   .form-group
-  /     input.form-control placeholder="Course name here.." type="text" /
-  /   button.btn.btn-default type="submit"  Submit
+  / form.navbar-form action='/search' method='post' id='search-form'
+  /   input.form-control type='text' name='keyword' id='home-form-keyword' placeholder='Course name here...'
+  /   input.form-control type='submit' value='submit' id='check-submit' class='submit'
+  / p
+  h2 Search a course with keyword
+  form action='/search' method='post' id='search-form'
+    .row
+      .input-group.input-group-lg
+        input.form-control type='text' name='keyword' id='home-form-keyword' placeholder=("Course name keyword here...") /
+        span.input-group-btn
+          button.btn.btn-default type="submit" value='submit' id='check-submit' Search
