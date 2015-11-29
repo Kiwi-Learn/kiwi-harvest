@@ -53,8 +53,8 @@ describe 'Kiwi harvest Stories' do
     end
   end
 
-  after do
-    @browser.close
-    @headless.destroy
-  end
+  # after do
+  #   @browser.close
+  #   @headless.destroy
+  # end
 end
