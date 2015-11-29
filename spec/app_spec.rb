@@ -14,12 +14,24 @@ describe 'Kiwi harvest Stories' do
     it 'finds the title' do
       @browser.title.must_equal 'Kiwi harvest'
     end
+
+    it 'check home page' do
+      @browser.link(text: 'Home').click
+
+      @browser.text.include? 'Kiwi'
+
+      @browser.link(text: 'Kiwi Learn').click
+
+      @browser.text.include? 'Kiwi'
+    end
+
   end
 
   describe 'Search a course' do
     it 'can search a course' do
       @browser.link(text: 'Search').click
       @browser.url.must_match %r{http.*/search}
+      @browser.h2.text.must_equal 'Search a course with keyword'
 
       @browser.text_field(name: 'keyword').set('program')
       @browser.button(id: 'check-submit').click
