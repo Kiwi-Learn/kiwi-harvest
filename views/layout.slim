@@ -12,7 +12,10 @@ html
     header
       == slim :nav
     section
-      == styled_flash
+      -if styled_flash && styled_flash != ''
+        .container
+          .alert.alert-danger role='alert'
+            == styled_flash
       == yield
     .footer
       == slim :footer
