@@ -16,6 +16,20 @@ describe 'Kiwi harvest Stories' do
     end
   end
 
+  describe 'Search a course' do
+    it 'can search a course' do
+      @browser.link(text: 'Search').click
+      @browser.url.must_match %r{http.*/search}
+
+      @browser.text_field(name: 'keyword').set('program')
+      @browser.input(id: 'check-submit').click
+      @browser.url.must_match %r{http.*/courses/.*}
+
+      @browser.table(class: 'table').rows.count.must_be :>=, 1
+      @browser.table(class: 'table').rows[0].text.must_match(/Course ID/)
+    end
+  end
+
   describe 'List all courses' do
     it 'check courses list page and table' do
       @browser.link(text: 'Courses').click
