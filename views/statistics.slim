@@ -1,5 +1,11 @@
 .container
   .page-header
-    h1 Statistics
-  / = line_chart, library:{chartArea:{width:'100%'}}
-  == column_chart @chart_data, library:{chartArea:{width:'100%'}}, id: 'progress', height: '300px', width: '100px'
+    h1 Courses History Statistics
+  h2 Courses in 2015
+  == column_chart @chart_data_2015, library:{chartArea:{width:'100%'}}, id: 'courses-2015', height: '300px', width: '100px'
+  h2 Courses in 2014
+  == column_chart @chart_data_2014, library:{chartArea:{width:'100%'}}, id: 'courses-2014', height: '300px', width: '100px'
+  h2 Courses in 2013
+  == column_chart @chart_data_2013, library:{chartArea:{width:'100%'}}, id: 'courses-2013', height: '300px', width: '100px'
+  h2 Courses in 2012
+  == column_chart @chart_data_2012, library:{chartArea:{width:'100%'}}, id: 'courses-2012', height: '300px', width: '100px'
