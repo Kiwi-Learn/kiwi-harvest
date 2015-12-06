@@ -27,3 +27,9 @@ nav.navbar.navbar-inverse
         - else
           li
             a href='/courses' id='courses'  Courses
+        - if current_page?('statistics')
+          li class='current_page_item'
+            a href='/statistics' id='courses'  Statistics
+        - else
+          li
+            a href='/statistics' id='courses'  Statistics
