@@ -35,6 +35,8 @@ GEM
       i18n (~> 0.5)
     ffi (1.9.10)
     fuzzy_match (2.1.0)
+    groupdate (2.5.0)
+      activesupport (>= 3)
     headless (2.2.0)
     hirb (0.7.3)
     httparty (0.13.7)
@@ -135,6 +137,7 @@ DEPENDENCIES
   chartkick
   digest
   fuzzy_match
+  groupdate
   headless
   hirb
   httparty

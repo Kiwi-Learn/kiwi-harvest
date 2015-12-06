@@ -3,9 +3,11 @@ require 'sinatra/flash'
 
 require 'hirb'
 require 'slim'
+require 'chartkick'
+require 'groupdate'
 
 require 'httparty'
-
+require 'Date'
 
 class ApplicationController < Sinatra::Base
   helpers CourseHelpers, SearchHelpers, ApplicationHelpers
@@ -23,11 +25,11 @@ class ApplicationController < Sinatra::Base
   end
 
   configure :development, :test do
-    set :api_server, 'https://kiwi-learn.herokuapp.com/'
+    set :api_server, 'https://kiwi-learn.herokuapp.com'
   end
 
   configure :production do
-    set :api_server, 'https://kiwi-learn.herokuapp.com/'
+    set :api_server, 'https://kiwi-learn.herokuapp.com'
   end
 
   configure :production, :development do
@@ -43,6 +45,14 @@ class ApplicationController < Sinatra::Base
     response = HTTParty.get("#{settings.api_server}/#{settings.api_ver}/courselist")
     logger.info "#{settings.api_server}/#{settings.api_ver}/courselist"
     @courselist = JSON.parse(response.body)
+    # dateTmp = []
+    # @courselist.each do |course|
+    #   unless course["date"][0..9]==='0000-00-00'
+    #     dateTmp << Date.parse(course["date"][0..9].gsub('-','/')) # handle time encoding
+    #   end
+    # end
+    # @dates = Hash[ dateTmp.group_by_month(format: "%b %Y") { |u| u }.map { |k, v| [k, v.size]} ]
+    # logger.info @dates
     slim :courses
   end
 
@@ -65,7 +75,7 @@ class ApplicationController < Sinatra::Base
 
     logger.info request_url
     results = CheckSearchFromAPI.new(request_url, form).call
-    
+
     if (results.code != 200)
       flash[:notice] = 'Could not found course'
       redirect '/search'
@@ -76,11 +86,28 @@ class ApplicationController < Sinatra::Base
     redirect "/courses/#{results.course_id}"
   end
 
+  app_get_date_stat =lambda do
+    response = HTTParty.get("#{settings.api_server}/#{settings.api_ver}/courselist")
+    logger.info "#{settings.api_server}/#{settings.api_ver}/courselist"
+    @courselist = JSON.parse(response.body)
+    dateTmp = []
+    @courselist.each do |course|
+      unless course["date"][0..9]==='0000-00-00'
+        dateTmp << Date.parse(course["date"][0..9].gsub('-','/')) # handle time encoding
+      end
+    end
+    @dates = Hash[ dateTmp.group_by_month(format: "%b %Y") { |u| u }.map { |k, v| [k, v.size]} ]
+    logger.info @dates
+
+    slim :course_date_stat
+  end
+
   # Web App Views Routes
   get '/', &app_get_root
   get '/courses', &app_get_courses
   get '/courses/:id', &app_get_courses_info
   get '/search' , &app_get_search
+  get '/date', &app_get_date_stat
   post '/search' ,&app_post_search
 
 end

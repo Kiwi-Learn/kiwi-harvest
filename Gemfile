@@ -18,6 +18,7 @@ gem 'sinatra-flash'
 gem 'slim'
 gem 'tilt'
 gem 'chartkick'
+gem 'groupdate'
 
 gem 'activesupport'
 
