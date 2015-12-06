@@ -6,6 +6,7 @@ require 'slim'
 
 require 'httparty'
 
+require 'chartkick'
 
 class ApplicationController < Sinatra::Base
   helpers CourseHelpers, SearchHelpers, ApplicationHelpers
@@ -65,7 +66,7 @@ class ApplicationController < Sinatra::Base
 
     logger.info request_url
     results = CheckSearchFromAPI.new(request_url, form).call
-    
+
     if (results.code != 200)
       flash[:notice] = 'Could not found course'
       redirect '/search'
@@ -76,11 +77,19 @@ class ApplicationController < Sinatra::Base
     redirect "/courses/#{results.course_id}"
   end
 
+  app_get_statistics = lambda do
+    @chart_data = {'JAN' => 1, 'FEB' => 2, 'MAR' => 3, 'APR' => 4, 'MAY' => 5,
+      'JUN' => 6, 'JUL' => 7, 'AUG' => 8, 'SEP' => 9, 'OCT' => 10, 'NOV' => 11,
+      'DEC' => 12}
+    slim :statistics
+  end
+
   # Web App Views Routes
   get '/', &app_get_root
   get '/courses', &app_get_courses
   get '/courses/:id', &app_get_courses_info
   get '/search' , &app_get_search
   post '/search' ,&app_post_search
+  get '/statistics' ,&app_get_statistics
 
 end
