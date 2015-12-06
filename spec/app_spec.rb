@@ -66,6 +66,6 @@ describe 'Kiwi harvest Stories' do
 
   after do
     @browser.close
-    @headless.destroy
+    # @headless.destroy
   end
 end
