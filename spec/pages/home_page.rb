@@ -9,6 +9,7 @@ class HomePage
   link(:kiwi_learn_link, text: 'Kiwi Learn')
   link(:search_link, text: 'Search')
   link(:courses_link, text: 'Courses')
+  link(:statistics_link, text: 'Statistics')
   h1(:homepage_header)
 
   def click_home_link

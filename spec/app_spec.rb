@@ -18,6 +18,7 @@ describe 'Kiwi harvest Stories' do
         page.kiwi_learn_link_element.exists?.must_equal true
         page.search_link_element.exists?.must_equal true
         page.courses_link_element.exists?.must_equal true
+        page.statistics_link_element.exists?.must_equal true
       end
     end
 
@@ -59,6 +60,23 @@ describe 'Kiwi harvest Stories' do
         # THEN
         page.browser.url.must_match %r{http.*/courses}
         page.number_of_courses_shown.must_be :>=, 200
+      end
+
+    end
+  end
+
+  describe 'Show courses history statistics' do
+    it 'check statistics page and header' do
+      # GIVEN
+      visit StatisticsPage do |page|
+        # WHEN
+        # THEN
+        page.browser.url.must_match %r{http.*/statistics}
+        page.statistics_header.must_equal 'Courses History Statistics'
+        page.chart_2015_element.exists?.must_equal true
+        page.chart_2014_element.exists?.must_equal true
+        page.chart_2013_element.exists?.must_equal true
+        page.chart_2012_element.exists?.must_equal true
       end
 
     end

@@ -29,55 +29,44 @@ class GetCoursesDateStatisticsAPI
       11 => 'NOV', 12 => 'DEC'
     }
 
-    @date_stat = {
-      2016 => {
+    @date_stat = init_date_stat(2012, 2016)
+  end
+
+  def init_date_stat(from_year, to_year)
+    date_stat = {}
+    for y in from_year..to_year
+      date_stat[y] = {
         'JAN' => 0, 'FEB' => 0, 'MAR' => 0, 'APR' => 0, 'MAY' => 0, 'JUN' => 0,
         'JUL' => 0, 'AUG' => 0, 'SEP' => 0, 'OCT' => 0, 'NOV' => 0, 'DEC' => 0
-      },
-      2015 => {
-        'JAN' => 0, 'FEB' => 0, 'MAR' => 0, 'APR' => 0, 'MAY' => 0, 'JUN' => 0,
-        'JUL' => 0, 'AUG' => 0, 'SEP' => 0, 'OCT' => 0, 'NOV' => 0, 'DEC' => 0
-      },
-      2014 => {
-        'JAN' => 0, 'FEB' => 0, 'MAR' => 0, 'APR' => 0, 'MAY' => 0, 'JUN' => 0,
-        'JUL' => 0, 'AUG' => 0, 'SEP' => 0, 'OCT' => 0, 'NOV' => 0, 'DEC' => 0
-      },
-      2013 => {
-        'JAN' => 0, 'FEB' => 0, 'MAR' => 0, 'APR' => 0, 'MAY' => 0, 'JUN' => 0,
-        'JUL' => 0, 'AUG' => 0, 'SEP' => 0, 'OCT' => 0, 'NOV' => 0, 'DEC' => 0
-      },
-      2012 => {
-        'JAN' => 0, 'FEB' => 0, 'MAR' => 0, 'APR' => 0, 'MAY' => 0, 'JUN' => 0,
-        'JUL' => 0, 'AUG' => 0, 'SEP' => 0, 'OCT' => 0, 'NOV' => 0, 'DEC' => 0
-      },
-    }
+      }
+    end
+    date_stat
   end
 
   def call
     date_stat = CoursesDateStatisticsResult.new
     results = HTTParty.get(@api_url)
     date_stat.code = results.code
-    
+
     courses = JSON.parse(results)
 
     courses.each do |result|
-      years = result['date'].split('-')[0]
+      years = result['date'].split('-')[0].to_i
       fromMon = result['date'].split('-')[1].to_i
-      if years == '2016'
-        @date_stat[2016][@num_to_mon_map[fromMon]] = @date_stat[2016][@num_to_mon_map[fromMon]] + 1
-      elsif years == '2015'
-        @date_stat[2015][@num_to_mon_map[fromMon]] = @date_stat[2015][@num_to_mon_map[fromMon]] + 1
-      elsif years == '2014'
-        @date_stat[2014][@num_to_mon_map[fromMon]] = @date_stat[2014][@num_to_mon_map[fromMon]] + 1
-      elsif years == '2013'
-        @date_stat[2013][@num_to_mon_map[fromMon]] = @date_stat[2013][@num_to_mon_map[fromMon]] + 1
-      elsif years == '2012'
-        @date_stat[2012][@num_to_mon_map[fromMon]] = @date_stat[2012][@num_to_mon_map[fromMon]] + 1
+      if years == 2016
+        @date_stat[2016][@num_to_mon_map[fromMon]] += 1
+      elsif years == 2015
+        @date_stat[2015][@num_to_mon_map[fromMon]] += 1
+      elsif years == 2014
+        @date_stat[2014][@num_to_mon_map[fromMon]] += 1
+      elsif years == 2013
+        @date_stat[2013][@num_to_mon_map[fromMon]] += 1
+      elsif years == 2012
+        @date_stat[2012][@num_to_mon_map[fromMon]] += 1
       else
-        # Not in 2012 to 2015
+        # Not in 2012 to 2016
       end
     end
-
 
     date_stat.twenty_sixteen = @date_stat[2016]
     date_stat.twenty_fifteen = @date_stat[2015]
