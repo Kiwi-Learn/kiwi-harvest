@@ -1,0 +1,5 @@
+.container
+  .page-header
+    h1 Statistics
+  / = line_chart, library:{chartArea:{width:'100%'}}
+  == column_chart @chart_data, library:{chartArea:{width:'100%'}}, id: 'progress', height: '300px', width: '100px'
