@@ -19,14 +19,20 @@ GEM
       thread_safe (~> 0.3, >= 0.3.1)
     bond (0.5.1)
     builder (3.2.2)
+    chartkick (1.4.1)
     childprocess (0.5.8)
       ffi (~> 1.0, >= 1.0.11)
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
+    data_magic (0.22)
+      faker (>= 1.1.2)
+      yml_reader (>= 0.6)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
     digest (0.0.1)
     equalizer (0.0.11)
+    faker (1.6.1)
+      i18n (~> 0.5)
     ffi (1.9.10)
     fuzzy_match (2.1.0)
     headless (2.2.0)
@@ -55,6 +61,12 @@ GEM
     oga (1.3.1)
       ast
       ruby-ll (~> 2.1)
+    page-object (1.1.0)
+      page_navigation (>= 0.9)
+      selenium-webdriver (>= 2.44.0)
+      watir-webdriver (>= 0.6.11)
+    page_navigation (0.9)
+      data_magic (>= 0.14)
     puma (2.15.3)
     rack (1.6.4)
     rack-protection (1.5.3)
@@ -112,6 +124,7 @@ GEM
     watir-webdriver (0.9.1)
       selenium-webdriver (>= 2.46.2)
     websocket (1.2.2)
+    yml_reader (0.6)
 
 PLATFORMS
   ruby
@@ -119,6 +132,7 @@ PLATFORMS
 DEPENDENCIES
   activemodel
   activesupport
+  chartkick
   digest
   fuzzy_match
   headless
@@ -128,6 +142,7 @@ DEPENDENCIES
   kiwicourse
   minitest
   minitest-rg
+  page-object
   puma
   rack
   rack-test
