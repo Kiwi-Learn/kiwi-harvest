@@ -7,7 +7,7 @@ require 'chartkick'
 require 'groupdate'
 
 require 'httparty'
-require 'Date'
+require 'date'
 
 class ApplicationController < Sinatra::Base
   helpers CourseHelpers, SearchHelpers, ApplicationHelpers
