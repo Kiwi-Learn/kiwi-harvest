@@ -24,11 +24,11 @@ class ApplicationController < Sinatra::Base
   end
 
   configure :development, :test do
-    set :api_server, 'https://kiwi-learn.herokuapp.com/'
+    set :api_server, 'https://kiwi-api.herokuapp.com'
   end
 
   configure :production do
-    set :api_server, 'https://kiwi-learn.herokuapp.com/'
+    set :api_server, 'https://kiwi-api.herokuapp.com'
   end
 
   configure :production, :development do
@@ -67,14 +67,14 @@ class ApplicationController < Sinatra::Base
     logger.info request_url
     results = CheckSearchFromAPI.new(request_url, form).call
 
-    if (results.code != 200)
+    if (results.nil?)
       flash[:notice] = 'Could not found course'
       redirect '/search'
       return nil
     end
 
-    # course_id = results.parsed_response['course_id']
-    redirect "/courses/#{results.course_id}"
+    @courselist = results
+    slim :courses
   end
 
   app_get_statistics = lambda do
