@@ -48,7 +48,7 @@ class GetCoursesDateStatisticsAPI
     results = HTTParty.get(@api_url)
     date_stat.code = results.code
 
-    courses = JSON.parse(results)
+    courses = JSON.parse(results.body)
 
     courses.each do |result|
       years = result['date'].split('-')[0].to_i

@@ -7,10 +7,11 @@ class SearchResult
 
   attribute :code
   attribute :keyword
-  attribute :course_name
-  attribute :course_id
-  attribute :course_url
-  attribute :course_date
+  attribute :name
+  attribute :id
+  attribute :url
+  attribute :date
+  attribute :fees
 
   def to_json
     to_hash.to_json
@@ -31,16 +32,22 @@ class CheckSearchFromAPI
 
   def call
     results = HTTParty.post(@api_url, @options)
-    search_results = SearchResult.new(results)
-    search_results.code = results.code
+
     if results.code != 200
-      return search_results
+      return nil
     end
-    search_results.keyword = results.parsed_response['keyword']
-    search_results.course_id = results.parsed_response['course_id']
-    search_results.course_name = results.parsed_response['course_name']
-    search_results.course_url = results.parsed_response['course_url']
-    search_results.course_date = results.parsed_response['course_date']
-    search_results
+    
+    courses_array = []
+    results.each do |result|
+      search_results = SearchResult.new
+      search_results.id = result['id']
+      search_results.name = result['name']
+      search_results.url = result['url']
+      search_results.date = result['date']
+      search_results.date = result['fees']
+      search_results.code = results.code
+      courses_array.push(search_results.clone)
+    end
+    courses_array
   end
 end
