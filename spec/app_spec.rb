@@ -45,8 +45,8 @@ describe 'Kiwi harvest Stories' do
         page.search_course('program')
 
         # THEN
-        page.browser.url.must_match %r{http.*/courses/.*}
-        page.number_of_courses_shown.must_equal 1
+        page.browser.url.must_match %r{http.*/search}
+        page.number_of_courses_shown.must_be :>=, 1
 
       end
     end
