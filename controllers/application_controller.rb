@@ -20,15 +20,15 @@ class ApplicationController < Sinatra::Base
   configure do
     Hirb.enable
     set :session_secret, 'something'
-    set :api_ver, 'api/v1'
+    set :api_ver, 'api/v2'
   end
 
   configure :development, :test do
-    set :api_server, 'https://kiwi-learn.herokuapp.com/'
+    set :api_server, 'https://kiwi-pasture.herokuapp.com'
   end
 
   configure :production do
-    set :api_server, 'https://kiwi-learn.herokuapp.com/'
+    set :api_server, 'https://kiwi-pasture.herokuapp.com'
   end
 
   configure :production, :development do
